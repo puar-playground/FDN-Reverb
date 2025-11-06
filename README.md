@@ -2,6 +2,12 @@
 
 A fast Feedback Delay Network (FDN) reverb implementation using PyTorch, with optional C++ extensions for maximum performance. Processes a 2:00 stereo song in ~2.4 seconds on M4 MacBook Pro!
 
+
+## Technical Details
+
+If you are interested in more details, please read my [blog](https://puar-playground.github.io/posts/reverb/): 🎵 FDN Reverb - Ripples of Space and Time.
+
+
 ## Features
 
 - 🚀 **High Performance**: C++ extension for 5-20x speedup over pure Python
@@ -190,64 +196,6 @@ The code automatically tries to use the fastest available implementation:
 2. **Lower Sample Rate**: Processing at 44.1kHz instead of 48kHz is ~10% faster
 3. **Adjust Block Size**: For very long files, consider processing in chunks
 
-## Technical Details
-
-### FDN Reverb Algorithm
-
-This implementation follows the standard FDN (Feedback Delay Network) reverb structure:
-
-Mathematically: `y[n] = A * y[n - delay] + g_in * x[n]`
-
-Expanded form: `y[n] = g_fb * H * y[n - delay] + g_in * x[n]`
-
-Where:
-- `y[n]`: Output from delay lines at sample n
-- `A`: Feedback matrix (`A = g_fb * H`)
-- `H`: Orthogonal Hadamard matrix (satisfies `H^T * H = I`)
-- `g_fb`: Feedback gain, a scaling factor (0~1) that controls reverb tail length and stability
-- `y[n - delay]`: Previous samples from delay lines (with different delay lengths)
-- `g_in`: Input gain (distributed across delay lines, `g_in = 1/N`)
-- `x[n]`: Input signal
-
-**Code Implementation** (in `reverb_util.py`):
-
-1. **`y[n-delay]`** - Read from delay lines (line 121):
-   ```python
-   y_vec = torch.lerp(y0, y1, frac)  # (C, N) - reads from delay buffers
-   ```
-
-2. **`A * y[n-delay]`** - Feedback matrix multiplication (line 125):
-   ```python
-   fb = torch.einsum('ij,cj->ci', A, y_vec)  # A @ y_vec
-   ```
-
-3. **`g * x[n]`** - Input gain distribution (line 132):
-   ```python
-   in_vec = (x[:, n].unsqueeze(1) * input_div) * ones_vec.unsqueeze(0)  # g = 1/N
-   ```
-
-4. **`y[n] = A * y[n-delay] + g * x[n]`** - Write back to buffers (line 136):
-   ```python
-   buffers.scatter_(2, write_pos.unsqueeze(-1), (fb_damped + in_vec).unsqueeze(-1))
-   ```
-   Note: `fb_damped` includes damping filter (line 128) - an enhancement beyond basic FDN theory.
-
-**Stability Requirement:**
-The feedback matrix A must satisfy `A^T * A = I` (orthogonal), ensuring the feedback loop doesn't accumulate or explode energy over time.
-
-**Implementation Details:**
-
-1. **Orthogonal Feedback Matrix**: Uses **Hadamard matrix** (orthonormal, satisfies `A^T * A = I`)
-   - Scaled by `feedback_gain` for stability: `A = feedback_gain * H` where `H` is Hadamard
-   - This ensures `A^T * A = feedback_gain² * I`, which is stable when `feedback_gain < 1`
-
-2. **Multiple Delay Lines**: Each delay line has a different length (coprime/prime numbers for better diffusion)
-
-3. **Enhanced Features** (beyond basic FDN theory):
-   - **Damping**: One-pole lowpass filter in feedback loop for realistic high-frequency decay
-   - **Modulation**: Time-varying delays (LFO) to avoid metallic/comb artifacts
-   - **Fractional Delay**: Linear interpolation for smooth delay line reading
-   - **Input Distribution**: Input is divided equally across all delay lines (`g = 1/N`)
 
 ## File Structure
 
@@ -259,13 +207,6 @@ Reverb/
 ├── fdn_cpu.cpp          # CPU C++ extension (optional, auto-compiles)\
 └── README.md           # This file
 ```
-
-
-## Acknowledgments
-
-- **FDN reverb algorithm** based on the seminal paper:
-  - Jot, J.-M., & Chaigne, A. (1991). "Digital delay networks for designing artificial reverberators." *AES Convention*. This paper introduced the Feedback Delay Network (FDN) structure and established the theoretical foundations for using orthogonal feedback matrices to create stable, realistic artificial reverberation.
-- If you are interested in more details, please read my [blog](https://puar-playground.github.io/posts/reverb/): 🎵 FDN Reverb - Ripples of Space and Time.
 
 
 ## Reference
