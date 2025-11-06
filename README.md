@@ -50,9 +50,9 @@ reverb = FDNReverb(
     delays_ms=(29, 37, 43, 53, 61, 71, 79, 89),
     feedback_gain=0.9,
     damp=0.25,
-    wet=1.0,
-    mod_depth_ms=0.8,
-    mod_rate_hz=0.2
+    wet=0.9,
+    mod_depth_ms=0.5,
+    mod_rate_hz=0.3
 )
 
 # Process audio
@@ -94,9 +94,9 @@ pip install torch torchaudio
 - `--delays_ms`: Delay times in milliseconds, space-separated (default: `29 37 43 53 61 71 79 89`)
 - `--feedback_gain`: Feedback gain 0~1, larger = longer tail, must be <1 (default: `0.9`)
 - `--damp`: Damping factor 0~1, larger = faster high-frequency decay (default: `0.25`)
-- `--wet`: Wet/dry mix ratio 0~1, 0=dry, 1=fully wet (default: `1.0`)
-- `--mod_depth_ms`: Modulation depth in milliseconds (default: `0.8`)
-- `--mod_rate_hz`: Modulation rate in Hz (default: `0.2`)
+- `--wet`: Wet/dry mix ratio 0~1, 0=dry, 1=fully wet (default: `0.9`)
+- `--mod_depth_ms`: Modulation depth in milliseconds (default: `0.5`)
+- `--mod_rate_hz`: Modulation rate in Hz (default: `0.3`)
 - `--output_gain`: Output gain scaling factor (default: `1.0`)
 
 #### Other Options
@@ -196,13 +196,17 @@ The code automatically tries to use the fastest available implementation:
 
 This implementation follows the standard FDN (Feedback Delay Network) reverb structure:
 
-Mathematically: `y[n] = A * y[n - delay] + g * x[n]`
+Mathematically: `y[n] = A * y[n - delay] + g_in * x[n]`
+
+Expanded form: `y[n] = g_fb * H * y[n - delay] + g_in * x[n]`
 
 Where:
 - `y[n]`: Output from delay lines at sample n
-- `A`: Orthogonal feedback matrix (ensures stability)
+- `A`: Feedback matrix (`A = g_fb * H`)
+- `H`: Orthogonal Hadamard matrix (satisfies `H^T * H = I`)
+- `g_fb`: Feedback gain, a scaling factor (0~1) that controls reverb tail length and stability
 - `y[n - delay]`: Previous samples from delay lines (with different delay lengths)
-- `g`: Input gain (distributed across delay lines)
+- `g_in`: Input gain (distributed across delay lines, `g_in = 1/N`)
 - `x[n]`: Input signal
 
 **Code Implementation** (in `reverb_util.py`):
