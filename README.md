@@ -258,8 +258,7 @@ Reverb/
 ├── main.py              # Command-line interface and example usage script
 ├── reverb_util.py       # Main FDN reverb implementation
 ├── io_utils.py          # Audio I/O utilities (load/save MP3, WAV, etc.)
-├── fdn_cpu.cpp          # CPU C++ extension (optional, auto-compiles)
-├── requirements.txt     # Python dependencies
+├── fdn_cpu.cpp          # CPU C++ extension (optional, auto-compiles)\
 └── README.md           # This file
 ```
 
