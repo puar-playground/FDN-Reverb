@@ -196,20 +196,7 @@ The code automatically tries to use the fastest available implementation:
 
 This implementation follows the standard FDN (Feedback Delay Network) reverb structure:
 
-**Core Structure:**
-```
-input --> [multiple delay lines] --> output
-                ▲
-                |
-         feedback matrix (A)
-                |
-                └──────────────┘
-```
-
-**Mathematical Model:**
-```
-y[n] = A * y[n - delay] + g * x[n]
-```
+Mathematically: `y[n] = A * y[n - delay] + g * x[n]`
 
 Where:
 - `y[n]`: Output from delay lines at sample n

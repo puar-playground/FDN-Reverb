@@ -24,16 +24,16 @@ def parse_args():
     parser.add_argument('--delays_ms', type=float, nargs='+', 
                         default=[29, 37, 43, 53, 61, 71, 79, 89],
                         help='Delay times in milliseconds (default: 29 37 43 53 61 71 79 89)')
-    parser.add_argument('--feedback_gain', type=float, default=0.8,
-                        help='Feedback gain 0~1, larger = longer tail, must be <1 (default: 0.8)')
+    parser.add_argument('--feedback_gain', type=float, default=0.9,
+                        help='Feedback gain 0~1, larger = longer tail, must be <1 (default: 0.9)')
     parser.add_argument('--damp', type=float, default=0.25,
                         help='Damping factor 0~1, larger = faster high-frequency decay (default: 0.25)')
     parser.add_argument('--wet', type=float, default=0.9,
                         help='Wet/dry mix ratio 0~1, 0=dry, 1=fully wet (default: 0.9)')
-    parser.add_argument('--mod_depth_ms', type=float, default=0.9,
-                        help='Modulation depth in milliseconds (default: 0.9)')
-    parser.add_argument('--mod_rate_hz', type=float, default=0.2,
-                        help='Modulation rate in Hz (default: 0.2)')
+    parser.add_argument('--mod_depth_ms', type=float, default=0.5,
+                        help='Modulation depth in milliseconds (default: 0.5)')
+    parser.add_argument('--mod_rate_hz', type=float, default=0.3,
+                        help='Modulation rate in Hz (default: 0.3)')
     parser.add_argument('--output_gain', type=float, default=1.0,
                         help='Output gain scaling factor (default: 1.0)')
     
