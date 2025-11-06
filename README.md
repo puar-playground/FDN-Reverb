@@ -249,9 +249,7 @@ The feedback matrix A must satisfy `A^T * A = I` (orthogonal), ensuring the feed
    - **Fractional Delay**: Linear interpolation for smooth delay line reading
    - **Input Distribution**: Input is divided equally across all delay lines (`g = 1/N`)
 
-## Architecture
-
-### File Structure
+## File Structure
 
 ```
 Reverb/
@@ -262,15 +260,13 @@ Reverb/
 └── README.md           # This file
 ```
 
-## Limitations
-
-- FDN reverb is sequential (each sample depends on previous), so it can't be fully parallelized
-- C++ extensions require compilation on first run (takes ~30-60 seconds)
 
 ## Acknowledgments
 
 - **FDN reverb algorithm** based on the seminal paper:
   - Jot, J.-M., & Chaigne, A. (1991). "Digital delay networks for designing artificial reverberators." *AES Convention*. This paper introduced the Feedback Delay Network (FDN) structure and established the theoretical foundations for using orthogonal feedback matrices to create stable, realistic artificial reverberation.
+- If you are interested in more details, please read my [blog](https://puar-playground.github.io/posts/reverb/): 🎵 FDN Reverb - Ripples of Space and Time.
+
 
 ## Reference
 
