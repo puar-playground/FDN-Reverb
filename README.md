@@ -18,16 +18,13 @@ If you are interested in more details, please read my [blog](https://puar-playgr
 - 🎧 **Stereo Support**: Process mono or stereo audio with batch processing
 
 ## Demo Music Files
-
-**Note**: The default input file `dry.mp3`, which is a midi rendered music- Prelude-from Final Fantasy Game. 
+**Note**: The default input file `dry.mp3` is a MIDI-rendered version of “Prelude” from the Final Fantasy series, without any reverb.
 
 <audio controls>
   <source src="https://raw.githubusercontent.com/puar-playground/FDN-Reverb/main/dry.mp3" type="audio/mpeg">
 </audio>
 
-
 And `wet_fdn.mp3` is the output processed with default parameters.
-
 
 <audio controls>
   <source src="https://raw.githubusercontent.com/puar-playground/FDN-Reverb/main/wet_fdn.mp3" type="audio/mpeg">
