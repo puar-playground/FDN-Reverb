@@ -14,11 +14,6 @@ build/
 fdn_cuda*.so
 fdn_cpu*.so
 
-# Audio files (optional - remove if you want to include example files)
-*.mp3
-*.wav
-*.flac
-*.m4a
 
 # IDE
 .vscode/
