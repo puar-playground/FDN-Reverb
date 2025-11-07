@@ -1,6 +1,7 @@
 import torch
 import numpy as np
 import os
+os.system('clear')
 
 # Try to load CPU C++ extension if available
 _fdn_cpp_available = False
@@ -79,10 +80,10 @@ def _process_fdn(
             buffers = result[1]
             write_idx = result[2]
             lp_state = result[3]
-            
             return y_out, lp_state, write_idx
         except Exception as e:
             print(f"[FDNReverb] C++ extension failed, falling back to Python: {e}")
+            
     
     # Python fallback
     C, length = x.shape
