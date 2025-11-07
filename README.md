@@ -1,6 +1,6 @@
 # FDN Reverb - High-Performance Audio Reverb Processor
 
-A fast Feedback Delay Network (FDN) reverb implementation using PyTorch, with optional C++ extensions for maximum performance. Processes a 2:00 stereo song in ~2.4 seconds on M4 MacBook Pro!
+A fast Feedback Delay Network (FDN) reverb implementation using PyTorch, with optional C++ extensions for maximum performance. Processes a 2 minutes 48khz stereo song in ~2.4 seconds on M4 MacBook Pro!
 
 
 ## Technical Details
@@ -10,7 +10,7 @@ If you are interested in more details, please read my [blog](https://puar-playgr
 
 ## Features
 
-- 🚀 **High Performance**: C++ extension for 5-20x speedup over pure Python
+- 🚀 **High Performance**: C++ extension for > 100x speedup over pure Python
 - 🎛️ **Cross-Platform**: Works on CPU (Mac, Linux, Windows)
 - 🎵 **Multi-Format Support**: Load/save MP3, WAV, and other audio formats
 - 🎚️ **Flexible Parameters**: Adjustable feedback gain, damping, wet/dry mix, and modulation
