@@ -17,9 +17,22 @@ If you are interested in more details, please read my [blog](https://puar-playgr
 - 🔊 **Automatic Volume Matching**: Peak-based normalization to match input/output levels
 - 🎧 **Stereo Support**: Process mono or stereo audio with batch processing
 
-## Quick Start
+## Demo Music Files
 
-**Note**: The default input file `dry.mp3`, which is a midi rendered music- Prelude-from Final Fantasy Game. And `wet_fdn.mp3` is the output processed with default parameters.
+**Note**: The default input file `dry.mp3`, which is a midi rendered music- Prelude-from Final Fantasy Game. 
+
+<audio controls>
+  <source src="https://github.com/puar-playground/FDN-Reverb/blob/main/dry.mp3" type="audio/mpeg">
+</audio>
+
+
+And `wet_fdn.mp3` is the output processed with default parameters.
+
+
+<audio controls>
+  <source src="https://github.com/puar-playground/FDN-Reverb/blob/main/wet_fdn.mp3" type="audio/mpeg">
+</audio>
+
 
 ### Command-Line Usage
 
